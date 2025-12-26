@@ -23,7 +23,7 @@ define('SMTP_SECURE', 'tls');
 $host = "localhost";
 $dataBase = "ZenBlogs";
 $db_user = "root";
-$db_password = "1234";
+$db_password = "";//Your Database Password
 $charset = "utf8mb4";
 
 $dataSourceName = "mysql:host=$host;dbname=$dataBase;charset=$charset";
