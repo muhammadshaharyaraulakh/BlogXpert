@@ -10,8 +10,8 @@ protectFile(__FILE__);
 // EMAIL CONFIGURATION (SMTP)
 // ==========================
 define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USER', 'muhammadshaharyaraulakh@gmail.com');
-define('SMTP_PASSWORD', 'sfyw hous shvc bytw'); 
+define('SMTP_USER', '');
+define('SMTP_PASSWORD', ''); 
 define('SMTP_PORT', 587);
 define('SMTP_SECURE', 'tls');
 // ==========================
@@ -21,7 +21,7 @@ define('SMTP_SECURE', 'tls');
 $host = "localhost";
 $dataBase = "BlogXpert";
 $db_user = "root";
-$db_password = "1234";
+$db_password = "";
 $charset = "utf8mb4";
 
 $dataSourceName = "mysql:host=$host;dbname=$dataBase;charset=$charset";
