@@ -1,0 +1,36 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Blog Website",
+            "database": "ZenBlogs",
+            "username": "root",
+            "password": "1234",
+            "connectionTimeout": 5000
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Blogs",
+            "database": "BlogXpert",
+            "username": "root",
+            "password": "1234",
+            "connectionTimeout": 5000
+        }
+    ]
+}
