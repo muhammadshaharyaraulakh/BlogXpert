@@ -197,16 +197,12 @@ $approvedPosts = $postApproved->fetchAll(PDO::FETCH_OBJ);
 
     </section>
     <section id="view-contact" class="hidden">
-        <div class="container form__section-container">
-            <h2>Contact Admin</h2>
-            <form method="POST">
-                <input type="text" name="subject" placeholder="Subject">
-                <div class="paragraph-grid">
-                    <textarea name="message" rows="5" placeholder="Write your query..."></textarea>
-                </div>
-                <button type="submit" class="btn">Send Message</button>
-            </form>
-        </div>
+        <form id="contactAdminForm">
+    <input type="text" name="subject" placeholder="Subject">
+    <textarea name="message" rows="5" placeholder="Write your message"></textarea>
+    <button type="submit" class="btn">Send Message</button>
+</form>
+
     </section>
 
 </main>

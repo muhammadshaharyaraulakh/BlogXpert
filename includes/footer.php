@@ -70,13 +70,16 @@
   <script src="/assests/post.js"></script>
   <script src="/assests/SignUpHandler.js"></script>
   <script src="/assests/LoginHandler.js"></script>
-  <script src="/assests/adminJavascript/admin.js"></script>
+  <?php if ($_SESSION['role'] == "admin" || $_SESSION['role']=="superadmin"): ?>
+      <script src="/assests/adminJavascript/admin.js"></script>
+    <?php   endif;?>
   <script src="/assests/adminJavascript/postHandler.js"></script>
   <script src="/assests/adminJavascript/categoryHandler.js"></script>
   <script src="/assests/adminJavascript/AdminAndWriterHandler.js"></script>
   <script src="/assests/adminJavascript/DeleteAdminAndWriter.js"></script>
   <script src="/assests/writerJavascript/addPost.js"></script>
   <script src="/assests/writerJavascript/update.js"></script>
+  <script src="/assests/writerJavascript/mail.js"></script>
   </body>
 
   </html>
