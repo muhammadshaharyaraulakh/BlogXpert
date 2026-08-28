@@ -8,7 +8,7 @@ require_once __DIR__ . "/../config/config.php";
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Zen Blogs</title>
+        <title>BlogXpert</title>
         <link rel="stylesheet" href="/assests/css/style.css">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,800;1,700&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@ require_once __DIR__ . "/../config/config.php";
                     <?php if(!empty($_SESSION['id'])): ?>
                     <li class="nav__profile">
                         <div class="avatar">
-                            <img src="/userImages/<?php echo htmlspecialchars($_SESSION['avatar']) ?>">
+                            <img src="<?= !empty($_SESSION['avatar']) ? '/userImages/' . $_SESSION['avatar'] : 'https://ui-avatars.com/api/?name=' . urlencode($_SESSION['name']) . '&background=random' ?>" alt="User Avatar">
                         </div>
                         <ul>
                              <?php if($_SESSION['role']=="admin" || $_SESSION['role']=="superadmin"): ?>

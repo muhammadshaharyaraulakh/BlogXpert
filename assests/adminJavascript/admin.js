@@ -10,32 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.showSection = function (sectionName) {
-        const sections = [
-            'view-pending',
-            'view-all-posts',
-            'view-categories',
-            'view-admins',
-            'view-writer'
-        ];
+        // Hide all sections dynamically
+        const allSections = document.querySelectorAll('main.content section');
+        allSections.forEach(el => el.classList.add('hidden'));
 
-        const navIds = [
-            'nav-pending',
-            'nav-all-posts',
-            'nav-categories',
-            'nav-admins',
-            'nav-writer'
-        ];
+        // Remove active class from all sidebar nav links dynamically
+        const allNavLinks = document.querySelectorAll('aside ul li a');
+        allNavLinks.forEach(el => el.classList.remove('active'));
 
-        sections.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.classList.add('hidden');
-        });
-
-        navIds.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.classList.remove('active');
-        });
-
+        // Activate targeted section and nav
         const activeSection = document.getElementById('view-' + sectionName);
         const activeNav = document.getElementById('nav-' + sectionName);
 

@@ -27,12 +27,6 @@ document.addEventListener('submit', function (e) {
                 card.style.opacity = '0';
                 setTimeout(() => card.remove(), 300);
             }
-
-            setTimeout(() => {
-                const url = new URL(window.location.href);
-                url.searchParams.set('section', sectionParam);
-                window.location.href = url.toString();
-            }, 2000);
         } else {
 
             if (submitBtn) submitBtn.disabled = false;

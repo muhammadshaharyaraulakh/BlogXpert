@@ -141,11 +141,18 @@ function createUser(PDO $connection, array $data, string $role, string $redirect
             ':avatar' => $image_name
         ]);
 
+        $new_user_id = $connection->lastInsertId();
+
         $response = [
             "status" => "success",
             "message" => "User registered successfully!",
             "field" => "general",
-            "redirect" => $redirectPath 
+            "redirect" => $redirectPath,
+            "data" => [
+                "id" => $new_user_id,
+                "first_name" => $firstname,
+                "avatar" => $image_name
+            ]
         ];
 
     } catch (Exception $e) {

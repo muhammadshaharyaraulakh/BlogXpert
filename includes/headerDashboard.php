@@ -21,7 +21,7 @@ protectFile(__FILE__);
             <button id="sidebar-toggle"><i class="uil uil-bars"></i></button>
 
             <div class="header__avatar">
-                <img src="/userImages/<?= $_SESSION['avatar'] ?>?>" alt="Admin">
+                <img src="<?= !empty($_SESSION['avatar']) ? '/userImages/' . $_SESSION['avatar'] : 'https://ui-avatars.com/api/?name=' . urlencode($_SESSION['name']) . '&background=random' ?>" alt="Admin">
             </div>
             <div class="header__welcome">
                 <h3><?= $_SESSION['name'] ?></h3>

@@ -17,7 +17,7 @@ const openPopupBtn = document.getElementById('open-comment-popup');
 
     if (openPopupBtn && commentPopup && closePopupBtn) {
         openPopupBtn.addEventListener('click', () => {
-            commentPopup.style.display = 'grid'; // show popup
+            commentPopup.style.display = 'grid'; 
         });
 
         closePopupBtn.addEventListener('click', () => {
@@ -91,6 +91,50 @@ if (commentForm) {
             if (data.status === 'success') {
                 showToast(data.message, 'success');
                 textarea.value = '';
+                
+                const commentsList = document.querySelector('.comments-list');
+                if (commentsList && data.data) {
+                    const article = document.createElement('article');
+                    article.className = 'comment';
+                    
+                    const avatarSrc = data.data.avatar ? `/userImages/${data.data.avatar}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(data.data.first_name)}&background=random`;
+                    const formattedDate = new Date(data.data.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                    article.innerHTML = `
+                        <div class="comment__avatar">
+                            <img src="${avatarSrc}" alt="User">
+                        </div>
+                        <div class="comment__content">
+                            <div class="comment__info">
+                                <h5>${data.data.first_name}</h5>
+                                <small>${formattedDate}</small> 
+                            </div>
+                            <p class="comment__body">
+                                ${data.data.body.replace(/\n/g, '<br>')}
+                            </p>
+                            <form action="delete.php" method="POST" class="delete-comment-form">
+                                <input type="hidden" name="comment_id" value="${data.data.id}">
+                                <input type="hidden" name="post_id" value="${data.data.post_id}">
+                                <button type="submit" class="delete-btn">
+                                    <i class="uil uil-trash-alt"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    `;
+                    
+                    commentsList.prepend(article);
+                    
+                    const headerH3 = document.querySelector('.comments-header h3');
+                    if (headerH3) {
+                        const match = headerH3.textContent.match(/\d+/);
+                        if (match) {
+                            headerH3.textContent = `Comments (${parseInt(match[0], 10) + 1})`;
+                        }
+                    }
+
+                    const commentPopup = document.getElementById('comment-popup');
+                    if (commentPopup) commentPopup.style.display = 'none';
+                }
             } else {
                 showToast(data.message, 'error');
             }
@@ -106,15 +150,14 @@ if (commentForm) {
 }
 
 
-const deleteCommentForms = document.querySelectorAll('.delete-comment-form');
-
-deleteCommentForms.forEach(form => {
-    form.addEventListener('submit', async (e) => {
+document.addEventListener('submit', async function (e) {
+    if (e.target && e.target.classList.contains('delete-comment-form')) {
         e.preventDefault();
 
-        const formData = new FormData(form);
+        const form = e.target;
         const commentCard = form.closest('.comment');
         const deleteBtn = form.querySelector('button');
+        const formData = new FormData(form);
 
         deleteBtn.disabled = true;
 
@@ -130,8 +173,17 @@ deleteCommentForms.forEach(form => {
                 showToast(data.message, 'success');
 
                 if (commentCard) {
+                    commentCard.style.transition = 'opacity 0.3s ease';
                     commentCard.style.opacity = '0';
                     setTimeout(() => commentCard.remove(), 300);
+                }
+
+                const headerH3 = document.querySelector('.comments-header h3');
+                if (headerH3) {
+                    const match = headerH3.textContent.match(/\d+/);
+                    if (match) {
+                        headerH3.textContent = `Comments (${parseInt(match[0], 10) - 1})`;
+                    }
                 }
             } else {
                 showToast(data.message, 'error');
@@ -143,6 +195,5 @@ deleteCommentForms.forEach(form => {
             showToast("Connection failed.", 'error');
             deleteBtn.disabled = false;
         }
-    });
+    }
 });
-

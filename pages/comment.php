@@ -20,9 +20,16 @@ try {
         ':body' => $body
     ]);
 
+    $comment_id = $connection->lastInsertId();
+
+    $fetchStmt = $connection->prepare("SELECT comments.*, user.first_name, user.avatar FROM comments JOIN user ON comments.user_id = user.id WHERE comments.id = :id");
+    $fetchStmt->execute([':id' => $comment_id]);
+    $newComment = $fetchStmt->fetch(PDO::FETCH_OBJ);
+
     $response = [
         'status' => 'success',
         'message' => 'Comment added!',
+        'data' => $newComment
     ];
 } catch (Exception $e) {
     $response['message'] = $e->getMessage();

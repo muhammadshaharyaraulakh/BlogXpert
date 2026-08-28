@@ -50,7 +50,7 @@ $posts = getPostsByStatus($connection, 'approved');
 
                         <div class="post__author">
                             <div class="post__author-avatar">
-                                <img src="/userImages/<?= htmlspecialchars($post->avatar) ?>" alt="Author Avatar">
+                                <img src="<?= !empty($post->avatar) ? '/userImages/' . htmlspecialchars($post->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode($post->first_name . ' ' . $post->last_name) . '&background=random' ?>" alt="Author Avatar">
                             </div>
                             <div class="post__author-info">
                                 <h5>By: <?= htmlspecialchars($post->first_name . " " . $post->last_name) ?></h5>

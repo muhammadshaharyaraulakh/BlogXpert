@@ -70,9 +70,9 @@
   <script src="/assests/post.js"></script>
   <script src="/assests/SignUpHandler.js"></script>
   <script src="/assests/LoginHandler.js"></script>
-  <?php if ($_SESSION['role'] == "admin" || $_SESSION['role']=="superadmin"): ?>
+  <?php if ($_SESSION['role'] == "admin" || $_SESSION['role']=="superadmin" || $_SESSION['role']=="writer"): ?>
       <script src="/assests/adminJavascript/admin.js"></script>
-    <?php   endif;?>
+  <?php endif; ?>
   <script src="/assests/adminJavascript/postHandler.js"></script>
   <script src="/assests/adminJavascript/categoryHandler.js"></script>
   <script src="/assests/adminJavascript/AdminAndWriterHandler.js"></script>

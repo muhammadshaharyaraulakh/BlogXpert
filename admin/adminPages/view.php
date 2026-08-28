@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
         <h2><?= htmlspecialchars($post->title) ?></h2>
         <div class="post__author">
             <div class="post__author-avatar">
-                <img src="/userImages/<?= $post->author_avatar ?>" alt="Author">
+                <img src="<?= !empty($post->author_avatar) ? '/userImages/' . $post->author_avatar : 'https://ui-avatars.com/api/?name=' . urlencode($post->first_name . ' ' . $post->last_name) . '&background=random' ?>" alt="Author">
             </div>
             <div class="post__author-info">
                 <h5>By: <?= htmlspecialchars($post->first_name . " " . $post->last_name) ?></h5>

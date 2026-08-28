@@ -1,6 +1,6 @@
 <?php
 define('SECURE_ACCESS', true);
-require_once __DIR__."/../function/function.php";
+require_once __DIR__ . '/../function/function.php';
 // Start session if none exists
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -10,19 +10,19 @@ protectFile(__FILE__);
 // EMAIL CONFIGURATION (SMTP)
 // ==========================
 define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USER', '');
-define('SMTP_PASSWORD', ''); 
+define('SMTP_USER', 'muhammadshaharyaraulakh@gmail.com');
+define('SMTP_PASSWORD', 'calakxpemjlcyeqt');
 define('SMTP_PORT', 587);
 define('SMTP_SECURE', 'tls');
 // ==========================
 // Database Configuration
 // ==========================
 
-$host = "localhost";
-$dataBase = "BlogXpert";
-$db_user = "root";
-$db_password = "";
-$charset = "utf8mb4";
+$host = 'localhost';
+$dataBase = 'BlogXpert';
+$db_user = 'laraveluser';
+$db_password = '1234';
+$charset = 'utf8mb4';
 
 $dataSourceName = "mysql:host=$host;dbname=$dataBase;charset=$charset";
 $options = [
@@ -38,6 +38,6 @@ $options = [
 try {
     $connection = new PDO($dataSourceName, $db_user, $db_password, $options);
 } catch (PDOException $e) {
-    die("Connection failed: " . htmlspecialchars($e->getMessage()));
+    die('Connection failed: ' . htmlspecialchars($e->getMessage()));
 }
 ?>

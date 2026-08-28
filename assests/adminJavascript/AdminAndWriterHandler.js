@@ -21,10 +21,40 @@ document.addEventListener('submit', async (e) => {
             showToast(data.message, "success");
             form.reset();
 
-            setTimeout(() => {
-                window.location.href = window.location.pathname + "?section=" + sectionName;
-            }, 2000);
+            const containerSelector = isProjectAdmin ? '#view-admins .posts-container' : '#view-writer .posts-container';
+            const container = document.querySelector(containerSelector);
+            
+            if (container && data.data) {
+                const article = document.createElement('article');
+                article.className = `post-card post-${isProjectAdmin ? 'admin' : 'writer'}`;
+                
+                const deleteAction = isProjectAdmin ? '/admin/handlers/deleteAdmin.php' : '/admin/handlers/deleteWriter.php';
+                const idName = isProjectAdmin ? 'adminId' : 'writerId';
+                const roleLabel = isProjectAdmin ? 'Admin' : 'Writer';
+                const formClass = isProjectAdmin ? 'deleteAdminForm' : 'deleteWriterForm';
 
+                article.innerHTML = `
+                    <div class="post-info-admin">
+                        <div class="header__avatar">
+                            <img src="${data.data.avatar ? '/userImages/' + data.data.avatar : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.data.first_name) + '&background=random'}" alt="Avatar">
+                        </div>
+                        <div>
+                            <h3 class="post-title" style="font-size: 1rem;">${data.data.first_name}</h3>
+                            <small>${roleLabel}</small>
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        <form class="${formClass}" action="${deleteAction}">
+                            <input type="hidden" name="${idName}" value="${data.data.id}">
+                            <input type="hidden" name="adminImage" value="${data.data.avatar}">
+                            <button type="submit" class="icon-btn delete">
+                                <i class="uil uil-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                `;
+                container.appendChild(article);
+            }
         } else {
             if (data.field && data.field !== "general") {
                 const errorDiv = form.querySelector(`.${prefix}_${data.field}_error`);

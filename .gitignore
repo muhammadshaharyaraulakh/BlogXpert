@@ -1,1 +1,21 @@
+# Dependency directory
+vendor/
+
+# User uploaded files
 images/*
+userImages/*
+
+# Configuration files
+# Note: config/config.php is already tracked by git. 
+# To stop tracking it, run: git rm --cached config/config.php
+config/config.php
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db

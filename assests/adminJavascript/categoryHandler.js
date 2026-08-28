@@ -18,9 +18,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.status === 'success') {
                     showToast(data.message, 'success');
                     addCategoryForm.reset();
-                    setTimeout(() => {
-                        window.location.href = window.location.pathname + "?section=categories";
-                    }, 2000);
+                    
+                    // Create and append the new category card
+                    const postsContainer = document.querySelector('#view-categories .posts-container');
+                    if (postsContainer && data.data) {
+                        const article = document.createElement('article');
+                        article.className = 'post-card category-Card';
+                        article.style.padding = '1rem';
+                        
+                        article.innerHTML = `
+                            <div class="post-info">
+                                <h3 class="post-title" style="font-size: 1rem;">${data.data.title}</h3>
+                            </div>
+                            <div class="post-actions">
+                                <form class="deleteCategoryForm" action="/admin/handlers/deleteCategory.php">
+                                    <input type="hidden" name="id" value="${data.data.id}">
+                                    <button class="icon-btn delete" type="submit"><i class="uil uil-trash-alt"></i></button>
+                                </form>
+                            </div>
+                        `;
+                        postsContainer.appendChild(article);
+                    }
                 } else {
                     if (data.field === 'title') {
                         titleError.textContent = data.message;
@@ -35,13 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const deleteForms = document.querySelectorAll('.deleteCategoryForm');
-    deleteForms.forEach(form => {
-        form.addEventListener('submit', async function (e) {
+    // Use event delegation for delete forms since they can be added dynamically
+    document.addEventListener('submit', async function (e) {
+        if (e.target && e.target.classList.contains('deleteCategoryForm')) {
             e.preventDefault();
-            const categoryCard = this.closest('.category-Card');
-            const formData = new FormData(this);
-            const actionUrl = this.getAttribute('action'); 
+            const form = e.target;
+            const categoryCard = form.closest('.category-Card');
+            const formData = new FormData(form);
+            const actionUrl = form.getAttribute('action'); 
 
             try {
                 const response = await fetch(actionUrl, { method: 'POST', body: formData });
@@ -51,16 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (data.status === 'success') {
                     if (categoryCard) {
+                        categoryCard.style.transition = 'opacity 0.3s ease';
                         categoryCard.style.opacity = '0';
                         setTimeout(() => categoryCard.remove(), 300);
                     }
-                    setTimeout(() => {
-                        window.location.href = window.location.pathname + "?section=categories";
-                    }, 2000);
                 }
             } catch (error) {
                 showToast("Connection failed.", "error");
             }
-        });
+        }
     });
 });

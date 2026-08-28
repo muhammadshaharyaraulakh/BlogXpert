@@ -23,7 +23,7 @@ require_once __DIR__."/../config/config.php";
             <button id="sidebar-toggle"><i class="uil uil-bars"></i></button>
 
             <div class="header__avatar">
-                <img src="/userImages/<?php echo $_SESSION['avatar'] ?>" alt="User">
+                <img src="<?= !empty($_SESSION['avatar']) ? '/userImages/' . $_SESSION['avatar'] : 'https://ui-avatars.com/api/?name=' . urlencode($_SESSION['name']) . '&background=random' ?>" alt="User">
             </div>
             <div class="header__welcome">
                 <h3> <?= $_SESSION['name'] ?></h3>

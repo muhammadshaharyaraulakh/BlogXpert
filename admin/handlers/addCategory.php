@@ -34,9 +34,14 @@ try {
 
     $insert = $connection->prepare("INSERT INTO categories (title) VALUES (:title)");
     if ($insert->execute(['title' => $title])) {
+        $new_id = $connection->lastInsertId();
         $response = [
             "status" => "success",
-            "message" => "Category added successfully!"
+            "message" => "Category added successfully!",
+            "data" => [
+                "id" => $new_id,
+                "title" => $title
+            ]
         ];
     } else {
         throw new Exception("Database failed to insert.");

@@ -168,7 +168,7 @@ $writerList = getRoles($connection, 'writer');
                         <article class="post-card post-admin">
                             <div class="post-info-admin">
                                 <div class="header__avatar">
-                                    <img src="/userImages/<?php echo $admin->avatar ?>" alt="A1">
+                                    <img src="<?= !empty($admin->avatar) ? '/userImages/' . $admin->avatar : 'https://ui-avatars.com/api/?name=' . urlencode($admin->first_name) . '&background=random' ?>" alt="A1">
                                 </div>
                                 <div>
                                     <h3 class="post-title"><?php echo $admin->first_name ?></h3>
@@ -245,7 +245,7 @@ $writerList = getRoles($connection, 'writer');
                         <article class="post-card post-writer">
                             <div class="post-info-admin">
                                 <div class="header__avatar">
-                                    <img src="/userImages/<?=$writer->avatar ?>" alt="A1">
+                                    <img src="<?= !empty($writer->avatar) ? '/userImages/' . $writer->avatar : 'https://ui-avatars.com/api/?name=' . urlencode($writer->first_name) . '&background=random' ?>" alt="A1">
                                 </div>
                                 <div>
                                     <h3 class="post-title" style="font-size: 1rem;"><?= $writer->first_name ?></h3>

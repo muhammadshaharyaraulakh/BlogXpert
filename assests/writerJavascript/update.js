@@ -1,27 +1,3 @@
-const toggleBtn = document.getElementById('sidebar-toggle');
-const mainLayout = document.getElementById('main-layout');
-
-toggleBtn.addEventListener('click', () => {
-    mainLayout.classList.toggle('sidebar-active');
-});
-
-function showSection(sectionName) {
-    const sections = ['manage', 'add', 'edit', 'contact', 'blog'];
-
-    sections.forEach(sec => {
-        const sectionEl = document.getElementById('view-' + sec);
-        const navEl = document.getElementById('nav-' + sec);
-
-        if (sec === sectionName) {
-            sectionEl.classList.remove('hidden');
-            if (navEl) navEl.classList.add('active');
-        } else {
-            sectionEl.classList.add('hidden');
-            if (navEl) navEl.classList.remove('active');
-        }
-    });
-}
-
 async function prepareEdit(postId) {
     try {
         const response = await fetch(`get_post_details.php?id=${postId}`);
@@ -45,7 +21,9 @@ async function prepareEdit(postId) {
                 setVal(`textarea[name="para_${i}"]`, post[`para_${i}`]);
             }
 
-            showSection('edit');
+            if (typeof window.showSection === 'function') {
+                window.showSection('edit');
+            }
 
         } else {
             alert("Error: " + result.message);
@@ -61,7 +39,8 @@ document.addEventListener("input", () => {
 
 const updateForm = document.getElementById("Update");
 
-updateForm.addEventListener("submit", async function(e) {
+if (updateForm) {
+    updateForm.addEventListener("submit", async function(e) {
     e.preventDefault();
     document.querySelectorAll(".alert__message.error").forEach(div => div.textContent = "");
 
@@ -87,3 +66,4 @@ updateForm.addEventListener("submit", async function(e) {
         console.error(error);
     }
 });
+}
