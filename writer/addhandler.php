@@ -61,7 +61,7 @@ try {
 
     $extension = pathinfo($thumbnail['name'], PATHINFO_EXTENSION);
     $unique_image_name = time() . '_' . bin2hex(random_bytes(5)) . '.' . $extension;
-    $upload_dir = __DIR__ . "/../../images/";
+    $upload_dir = __DIR__ . "/../images/";
     $target_path = $upload_dir . $unique_image_name;
 
     if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
