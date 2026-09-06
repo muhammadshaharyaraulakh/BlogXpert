@@ -1,21 +1,78 @@
-# Dependency directory
-vendor/
+# ===================================================
+# Dependencies
+# ===================================================
+/vendor/
+composer.phar
 
-# User uploaded files
-images/*
-userImages/*
-
-# Configuration files
-# Note: config/config.php is already tracked by git. 
-# To stop tracking it, run: git rm --cached config/config.php
+# ===================================================
+# Environment & Sensitive Configuration
+# ===================================================
+.env
+.env.*
+!.env.example
 config/config.php
+!config/config.example.php
 
-# IDEs and Editors
+# ===================================================
+# User & Dynamic Uploads
+# ===================================================
+# Ignore uploaded post images but preserve Hero banner and gitkeep
+images/*
+!images/Hero.png
+!images/.gitkeep
+
+# Ignore uploaded user avatar images but preserve gitkeep
+userImages/*
+!userImages/.gitkeep
+
+# ===================================================
+# Database & SQL Tool Sessions / Scratch Files
+# ===================================================
+*.session.sql
+*.sql.session
+*.sqlite
+*.sqlite3
+*.db
+*.sql.dump
+Blogs.session.sql
+
+# ===================================================
+# Logs, Cache & Temporary Files
+# ===================================================
+*.log
+error_log
+tmp/
+temp/
+*.tmp
+*.cache
+
+# ===================================================
+# IDEs & Code Editors
+# ===================================================
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
 *.swp
 *.swo
+*~
 
-# OS generated files
+# ===================================================
+# Operating System Files
+# ===================================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini
+
+# ===================================================
+# Node / Frontend Build (if added)
+# ===================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
